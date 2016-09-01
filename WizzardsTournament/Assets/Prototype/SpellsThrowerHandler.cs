@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Prototype
 {
-    public class SpellsHandler : MonoBehaviour
+    public class SpellsThrowerHandler : MonoBehaviour
     {
 
         public Transform spellsSpawningPosition;
@@ -13,7 +13,7 @@ namespace Prototype
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 Rigidbody currentSpell = Instantiate(spell,spellsSpawningPosition.position,spellsSpawningPosition.rotation) as Rigidbody;
                 currentSpell.AddForce(currentSpell.transform.forward * force);

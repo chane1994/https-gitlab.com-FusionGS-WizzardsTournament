@@ -11,7 +11,7 @@ public class TeleportingHandler : MonoBehaviour {
         Ray teleportingHit = new Ray(camera.transform.position, camera.transform.forward);
 
         Debug.DrawRay(camera.transform.position, camera.transform.forward);
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) || Input.GetMouseButtonDown(1))
         {
             
 
@@ -21,6 +21,7 @@ public class TeleportingHandler : MonoBehaviour {
                 {
                     Transform teleportingPosition = hit.collider.GetComponent<Prototype.PlatformHandler>().spawningPosition;
                     transform.position = teleportingPosition.position;
+                    transform.parent = teleportingPosition;
                 }
             }
         }
