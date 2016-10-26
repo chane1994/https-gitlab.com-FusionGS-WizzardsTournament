@@ -9,6 +9,7 @@ namespace WizardsTournament
     [RequireComponent(typeof(SteamVR_TrackedObject))]
     public class PlayerInputHandler : MonoBehaviour
     {
+        public Hand hand;
         private SteamVR_TrackedObject _trackedObj;
         private SteamVR_Controller.Device _device;
 
@@ -27,12 +28,27 @@ namespace WizardsTournament
             _device = SteamVR_Controller.Input((int)_trackedObj.index);
             if (_device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
-                OnTriggerPressed();
+                if (hand.Equals(Hand.Left))
+                {
+                    Player.Instance.ProcessInput(InputCommand.LeftTriggerPressed);
+                }
+                else
+                {
+                    Player.Instance.ProcessInput(InputCommand.RightTriggerPressed);
+                }
+                
             }
 
             if (_device.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
             {
-                OnTriggerReleased();
+                if (hand.Equals(Hand.Left))
+                {
+                    Player.Instance.ProcessInput(InputCommand.LeftTriggerReleased);
+                }
+                else
+                {
+                    Player.Instance.ProcessInput(InputCommand.RightTriggerReleased);
+                }
             }
 
             if (_device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))

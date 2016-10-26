@@ -9,6 +9,9 @@ namespace WizardsTournament
     public class Player : MonoBehaviour// This class is independent of the avatar. 
     {
         #region Variables
+
+        public SpellCaster leftSpellCaster; //dummy this does not go here. It goes to the character script
+        public SpellCaster rightSpellCaster; //dummy this does not go here. It goes to the character script
         //state
         #endregion
 
@@ -30,7 +33,42 @@ namespace WizardsTournament
             }
         }
 
-     
+        /// <summary>
+        /// Receives the information from the inputhandler and sends it to the statemachine to be processed
+        /// </summary>
+        /// <param name="inputCommand"></param>
+        public void ProcessInput(InputCommand inputCommand)
+        {
+            #region Dummy code for fast setup
+            switch (inputCommand)
+            {
+                case InputCommand.LeftTriggerPressed:
+                    leftSpellCaster.CastSpell(new Spell(4,"Prefabs/Spells/Spell",1000));
+                    break;
+                case InputCommand.LeftTriggerReleased:
+                    break;
+                case InputCommand.RightTriggerPressed:
+                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
+                    break;
+                case InputCommand.RightTriggerReleased:
+                    break;
+                case InputCommand.LeftTouchpadPressed:
+                    break;
+                case InputCommand.LeftTouchpadReleased:
+                    break;
+                case InputCommand.RightTouchpadPressed:
+                    break;
+                case InputCommand.RightTouchpadReleased:
+                    break;
+                case InputCommand.LeftGripPressed:
+                    break;
+                case InputCommand.RightGripPressed:
+                    break;
+                default:
+                    break;
+            }
+            #endregion
+        }
         #endregion
     }
 }
