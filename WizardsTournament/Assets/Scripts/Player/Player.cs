@@ -29,6 +29,8 @@ namespace WizardsTournament
                 Destroy(gameObject);
             }
         }
+
+     
         #endregion
     }
 }
