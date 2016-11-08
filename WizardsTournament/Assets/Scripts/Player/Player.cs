@@ -9,9 +9,9 @@ namespace WizardsTournament
     public class Player : MonoBehaviour// This class is independent of the avatar. 
     {
         #region Variables
-
-        public SpellCaster leftSpellCaster; //dummy this does not go here. It goes to the character script
-        public SpellCaster rightSpellCaster; //dummy this does not go here. It goes to the character script
+        Character _character;
+        public Transform leftController;
+        public Transform rightController;
         //state
         #endregion
 
@@ -20,18 +20,47 @@ namespace WizardsTournament
         #endregion
 
         #region Methods
-        private void Awake()
+        void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                _character = new Character();
             }
             else
             {
                 Destroy(gameObject);
             }
+            
         }
+
+        void Start()
+        {
+            StartCoroutine("SetUpBody");
+        }
+
+
+        IEnumerator SetUpBody()
+        {
+            GameObject leftArm = Resources.Load<GameObject>(_character.LeftArmPath);
+            yield return new WaitForSeconds(0.1f);
+            leftArm = Instantiate(leftArm);
+            leftArm.transform.parent = leftController.transform;
+            leftArm.transform.position = Vector3.zero;
+
+            GameObject rightArm = Resources.Load<GameObject>(_character.RightArmPath);
+            yield return new WaitForSeconds(0.1f);
+            rightArm = Instantiate(rightArm);
+            rightArm.transform.parent = rightController.transform;
+            rightArm.transform.position = Vector3.zero;
+
+            yield return new WaitForSeconds(0.1f);
+
+            _character.leftSpellCaster = leftArm.GetComponent<SpellCaster>();
+            _character.rightSpellCaster = rightArm.GetComponent<SpellCaster>();
+        }
+
 
         /// <summary>
         /// Receives the information from the inputhandler and sends it to the statemachine to be processed
@@ -43,12 +72,12 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.LeftTriggerPressed:
-                    leftSpellCaster.CastSpell(new Spell(4,"Prefabs/Spells/Spell",1000));
+                    _character.ProcessInputCommand(inputCommand);
                     break;
                 case InputCommand.LeftTriggerReleased:
                     break;
                 case InputCommand.RightTriggerPressed:
-                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
+                    _character.ProcessInputCommand(inputCommand);
                     break;
                 case InputCommand.RightTriggerReleased:
                     break;

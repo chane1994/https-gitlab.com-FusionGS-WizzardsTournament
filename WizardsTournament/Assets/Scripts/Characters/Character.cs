@@ -10,14 +10,20 @@ namespace WizardsTournament
     public class Character //You will get the information for this class from a JSON file
     {
         #region Variables
-        public SpellCaster[] spellcasters;
+        public SpellCaster leftSpellCaster; 
+        public SpellCaster rightSpellCaster;
         //StateMachine
-        string[] armsPrefabPath;
+       
         Dictionary<TypeOfAttack, SpellName> _spells;
         #endregion
 
         #region Properties
         public string Name { get; private set; }
+
+        public string LeftArmPath { get; private set; }
+
+        public string RightArmPath { get; private set; }
+
         #endregion
 
         #region DummyCode for easy setup
@@ -30,6 +36,9 @@ namespace WizardsTournament
             _spells.Add(TypeOfAttack.SpecialAvility, SpellName.HologramTeleporter);
             _spells.Add(TypeOfAttack.UnBreakable, SpellName.SoulSteeler);
             _spells.Add(TypeOfAttack.SummonAttack, SpellName.DeathSummon);
+
+            LeftArmPath = "Prefabs/Characters/ModelLeft";
+            RightArmPath = "Prefabs/Characters/ModelRight";
         }
 
         public void ProcessInputCommand(InputCommand inputCommand)//this method will pass the input command to the state machine. For now this will have a switch
@@ -37,10 +46,14 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.LeftTriggerPressed:
+                    Debug.Log(InputCommand.LeftTriggerPressed.ToString());
+                    leftSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
+
                     break;
                 case InputCommand.LeftTriggerReleased:
                     break;
                 case InputCommand.RightTriggerPressed:
+                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
                     break;
                 case InputCommand.RightTriggerReleased:
                     break;
