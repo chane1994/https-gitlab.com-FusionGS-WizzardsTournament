@@ -26,7 +26,7 @@ namespace WizardsTournament
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                _character = new Character();
+               
             }
             else
             {
@@ -37,23 +37,37 @@ namespace WizardsTournament
 
         void Start()
         {
+            _character = new Character(IOManager.Instance.GetCharacterJSONNode(CharacterName.Honovi));
             StartCoroutine("SetUpBody");
         }
+
+       
 
 
         IEnumerator SetUpBody()
         {
+
             GameObject leftArm = Resources.Load<GameObject>(_character.LeftArmPath);
             yield return new WaitForSeconds(0.1f);
             leftArm = Instantiate(leftArm);
+            // yield return new WaitForSeconds(0.3f);
             leftArm.transform.parent = leftController.transform;
-            leftArm.transform.position = Vector3.zero;
+            // yield return new WaitForSeconds(0.1f);
+            leftArm.transform.localPosition = Vector3.zero;
 
+            yield return new WaitForSeconds(0.1f);
             GameObject rightArm = Resources.Load<GameObject>(_character.RightArmPath);
             yield return new WaitForSeconds(0.1f);
             rightArm = Instantiate(rightArm);
+            // yield return new WaitForSeconds(0.3f);
             rightArm.transform.parent = rightController.transform;
-            rightArm.transform.position = Vector3.zero;
+         //   yield return new WaitForSeconds(0.1f);
+            rightArm.transform.localPosition = Vector3.zero;
+
+
+          
+
+          
 
             yield return new WaitForSeconds(0.1f);
 

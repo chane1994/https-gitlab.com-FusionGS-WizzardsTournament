@@ -10,6 +10,6 @@ namespace WizardsTournament
     public enum SpellName { Skull, SoulSteeler, HologramTeleporter, DeathSummon   }
 
     public enum TypeOfAttack { BasicAttack, ContinuousAttack, SummonAttack, SpecialAvility, UnBreakable}
-  
 
+    public enum CharacterName { Honovi, Vulcan, Angel}
 }

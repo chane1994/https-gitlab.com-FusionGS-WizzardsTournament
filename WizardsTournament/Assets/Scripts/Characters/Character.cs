@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 namespace WizardsTournament
 {
@@ -33,6 +34,20 @@ namespace WizardsTournament
             Name = "Honovi";
             _spells = new Dictionary<TypeOfAttack, SpellName>();
             _spells.Add(TypeOfAttack.BasicAttack,SpellName.Skull);
+            _spells.Add(TypeOfAttack.SpecialAvility, SpellName.HologramTeleporter);
+            _spells.Add(TypeOfAttack.UnBreakable, SpellName.SoulSteeler);
+            _spells.Add(TypeOfAttack.SummonAttack, SpellName.DeathSummon);
+
+            LeftArmPath = "Prefabs/Characters/ModelLeft";
+            RightArmPath = "Prefabs/Characters/ModelRight";
+        }
+
+        public Character(JSONNode data)
+        {
+            //create the class from the json NOde
+            Name = "Honovi1111";
+            _spells = new Dictionary<TypeOfAttack, SpellName>();
+            _spells.Add(TypeOfAttack.BasicAttack, SpellName.Skull);
             _spells.Add(TypeOfAttack.SpecialAvility, SpellName.HologramTeleporter);
             _spells.Add(TypeOfAttack.UnBreakable, SpellName.SoulSteeler);
             _spells.Add(TypeOfAttack.SummonAttack, SpellName.DeathSummon);
