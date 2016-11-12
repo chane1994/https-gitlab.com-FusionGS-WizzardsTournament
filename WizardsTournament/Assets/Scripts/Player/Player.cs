@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace WizardsTournament
 {
@@ -12,6 +13,7 @@ namespace WizardsTournament
         Character _character;
         public Transform leftController;
         public Transform rightController;
+      
         //state
         #endregion
 
@@ -48,26 +50,29 @@ namespace WizardsTournament
         {
 
             GameObject leftArm = Resources.Load<GameObject>(_character.LeftArmPath);
-            yield return new WaitForSeconds(0.1f);
-            leftArm = Instantiate(leftArm);
-            // yield return new WaitForSeconds(0.3f);
-            leftArm.transform.parent = leftController.transform;
-            // yield return new WaitForSeconds(0.1f);
-            leftArm.transform.localPosition = Vector3.zero;
-
-            yield return new WaitForSeconds(0.1f);
             GameObject rightArm = Resources.Load<GameObject>(_character.RightArmPath);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.3f);
+            leftArm = Instantiate(leftArm);
             rightArm = Instantiate(rightArm);
-            // yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.1f);
+            leftArm.transform.parent = leftController.transform;
             rightArm.transform.parent = rightController.transform;
-         //   yield return new WaitForSeconds(0.1f);
-            rightArm.transform.localPosition = Vector3.zero;
+            yield return new WaitForSeconds(1f);
+           //  leftArm.transform.localPosition = Vector3.zero;
+            leftController.GetComponent<HandPositionCorrecter>().UpdateHand((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
+            rightController.GetComponent<HandPositionCorrecter>().UpdateHand((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
 
 
+           // yield return new WaitForSeconds(0.1f);
+           
+            
+           // yield return new WaitForSeconds(1f);
           
+           
 
-          
+
+
+
 
             yield return new WaitForSeconds(0.1f);
 

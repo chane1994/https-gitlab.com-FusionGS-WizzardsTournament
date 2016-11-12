@@ -16,6 +16,7 @@ namespace WizardsTournament
         //StateMachine
        
         Dictionary<TypeOfAttack, SpellName> _spells;
+        const string L_NAME = "Name";
         #endregion
 
         #region Properties
@@ -28,24 +29,12 @@ namespace WizardsTournament
         #endregion
 
         #region DummyCode for easy setup
-        public Character()
-        {
-            //these comes from a JSON FIle
-            Name = "Honovi";
-            _spells = new Dictionary<TypeOfAttack, SpellName>();
-            _spells.Add(TypeOfAttack.BasicAttack,SpellName.Skull);
-            _spells.Add(TypeOfAttack.SpecialAvility, SpellName.HologramTeleporter);
-            _spells.Add(TypeOfAttack.UnBreakable, SpellName.SoulSteeler);
-            _spells.Add(TypeOfAttack.SummonAttack, SpellName.DeathSummon);
-
-            LeftArmPath = "Prefabs/Characters/ModelLeft";
-            RightArmPath = "Prefabs/Characters/ModelRight";
-        }
-
         public Character(JSONNode data)
         {
             //create the class from the json NOde
-            Name = "Honovi1111";
+            Name = data[L_NAME];
+
+            Debugger.Print(Name);
             _spells = new Dictionary<TypeOfAttack, SpellName>();
             _spells.Add(TypeOfAttack.BasicAttack, SpellName.Skull);
             _spells.Add(TypeOfAttack.SpecialAvility, SpellName.HologramTeleporter);

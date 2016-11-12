@@ -39,7 +39,8 @@ namespace WizardsTournament
 
         public JSONNode GetCharacterJSONNode(CharacterName characterName)
         {
-           return _charactersDataFilesDirectory[characterName.ToString()];
+            string JSONfilePath = _charactersDataFilesDirectory[characterName.ToString()];
+            return JSON.Parse(((TextAsset)Resources.Load(JSONfilePath)).text);
         }
         #endregion
     }

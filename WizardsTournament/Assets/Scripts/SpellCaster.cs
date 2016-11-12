@@ -15,7 +15,7 @@ namespace WizardsTournament
 
             GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spell.PrefabPath));
             spellCreated.transform.position = shotSpawnPositions.position;
-            Vector3 forward = transform.forward.normalized;
+            Vector3 forward = shotSpawnPositions.forward.normalized;
             spellCreated.GetComponent<Rigidbody>().AddForce(forward * spell.Speed);
         }
     }
