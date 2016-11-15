@@ -7,7 +7,7 @@ namespace WizardsTournament
     /// <summary>
     /// It is responsible for the actions of the player. It will distribute the orders to different classes depending on what needs to be done. This class will keep everything in order if the player changes avatars.
     /// </summary>
-    public class Player : MonoBehaviour// This class is independent of the avatar. 
+    public class PlayerController : MonoBehaviour// This class is independent of the avatar. 
     {
         #region Variables
         Character _character;
@@ -18,7 +18,7 @@ namespace WizardsTournament
         #endregion
 
         #region Properties
-        public static Player Instance { get; private set; }
+        public static PlayerController Instance { get; private set; }
         #endregion
 
         #region Methods
@@ -39,16 +39,18 @@ namespace WizardsTournament
 
         void Start()
         {
-            _character = new Character(IOManager.Instance.GetCharacterJSONNode(CharacterName.Honovi));
+            _character = new Honovi();//new Character(IOManager.Instance.GetCharacterJSONNode(CharacterName.Honovi));
             StartCoroutine("SetUpBody");
         }
 
        
 
-
+        /// <summary>
+        /// Instantiates and positions the parts of the body of the selected character
+        /// </summary>
+        /// <returns></returns>
         IEnumerator SetUpBody()
         {
-
             GameObject leftArm = Resources.Load<GameObject>(_character.LeftArmPath);
             GameObject rightArm = Resources.Load<GameObject>(_character.RightArmPath);
             yield return new WaitForSeconds(0.3f);
@@ -57,22 +59,24 @@ namespace WizardsTournament
             yield return new WaitForSeconds(0.1f);
             leftArm.transform.parent = leftController.transform;
             rightArm.transform.parent = rightController.transform;
-            yield return new WaitForSeconds(1f);
-           //  leftArm.transform.localPosition = Vector3.zero;
-            leftController.GetComponent<HandPositionCorrecter>().UpdateHand((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
-            rightController.GetComponent<HandPositionCorrecter>().UpdateHand((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
+            bool handsReady = false;
 
-
-           // yield return new WaitForSeconds(0.1f);
-           
-            
-           // yield return new WaitForSeconds(1f);
-          
-           
-
-
-
-
+            #region Correcting hand position and rotation
+            while (!handsReady)
+            {
+                yield return new WaitForSeconds(0.1f);
+                try
+                {
+                    leftController.GetComponent<HandPositionCorrecter>().UpdateHandRotationAndPosition((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
+                    rightController.GetComponent<HandPositionCorrecter>().UpdateHandRotationAndPosition((CharacterName)Enum.Parse(typeof(CharacterName), _character.Name)); //correcting angles and positioning
+                    handsReady = true;
+                }
+                catch (Exception ex)
+                {
+                    Debugger.Print("Hands are not ready. " + ex.Message);
+                }
+            }
+            #endregion
 
             yield return new WaitForSeconds(0.1f);
 

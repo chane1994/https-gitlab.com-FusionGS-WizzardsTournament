@@ -24,7 +24,7 @@ namespace WizardsTournament
             _handPositionIndexes.Add(CharacterName.Angel, 2);
         }
 
-        public void UpdateHand(CharacterName characterName)
+        public void UpdateHandRotationAndPosition(CharacterName characterName)
         {
             GameObject o = GameObject.FindGameObjectWithTag(hand.ToString());
             o.transform.position = handCorrectPositions[_handPositionIndexes[characterName]].position;

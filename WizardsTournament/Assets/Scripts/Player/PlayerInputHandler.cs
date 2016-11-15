@@ -30,11 +30,11 @@ namespace WizardsTournament
             {
                 if (hand.Equals(Hand.Left))
                 {
-                    Player.Instance.ProcessInput(InputCommand.LeftTriggerPressed);
+                    PlayerController.Instance.ProcessInput(InputCommand.LeftTriggerPressed);
                 }
                 else
                 {
-                    Player.Instance.ProcessInput(InputCommand.RightTriggerPressed);
+                    PlayerController.Instance.ProcessInput(InputCommand.RightTriggerPressed);
                 }
                 
             }
@@ -43,11 +43,11 @@ namespace WizardsTournament
             {
                 if (hand.Equals(Hand.Left))
                 {
-                    Player.Instance.ProcessInput(InputCommand.LeftTriggerReleased);
+                    PlayerController.Instance.ProcessInput(InputCommand.LeftTriggerReleased);
                 }
                 else
                 {
-                    Player.Instance.ProcessInput(InputCommand.RightTriggerReleased);
+                    PlayerController.Instance.ProcessInput(InputCommand.RightTriggerReleased);
                 }
             }
 
