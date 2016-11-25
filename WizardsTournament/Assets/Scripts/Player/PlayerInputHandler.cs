@@ -28,8 +28,10 @@ namespace WizardsTournament
             _device = SteamVR_Controller.Input((int)_trackedObj.index);
             if (_device.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
             {
+                _device.TriggerHapticPulse(750);
                 if (hand.Equals(Hand.Left))
                 {
+                    _device.TriggerHapticPulse(500);
                     PlayerController.Instance.ProcessInput(InputCommand.LeftTriggerPressed);
                 }
                 else
@@ -53,7 +55,15 @@ namespace WizardsTournament
 
             if (_device.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
             {
-                OnGripPressed();
+                if (hand.Equals(Hand.Left))
+                {
+                    PlayerController.Instance.ProcessInput(InputCommand.LeftGripPressed);
+                }
+                else
+                {
+                    PlayerController.Instance.ProcessInput(InputCommand.RightGripPressed);
+                }
+                
             }
 
             if (_device.GetPressDown( SteamVR_Controller.ButtonMask.Touchpad))

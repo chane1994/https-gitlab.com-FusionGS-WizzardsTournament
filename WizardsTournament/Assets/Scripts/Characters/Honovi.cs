@@ -52,6 +52,7 @@ namespace WizardsTournament
                 case InputCommand.LeftGripPressed:
                     break;
                 case InputCommand.RightGripPressed:
+                  //  PlayerController.Instance.TryToTeleport();
                     break;
                 default:
                     break;

@@ -7,13 +7,15 @@ namespace WizardsTournament
     /// <summary>
     /// It is responsible for the actions of the player. It will distribute the orders to different classes depending on what needs to be done. This class will keep everything in order if the player changes avatars.
     /// </summary>
+   // [RequireComponent(typeof(PlayerTeleporter))]
     public class PlayerController : MonoBehaviour// This class is independent of the avatar. 
     {
         #region Variables
-        Character _character;
         public Transform leftController;
         public Transform rightController;
-      
+        Character _character;
+      //  PlayerTeleporter _teleporter;
+        
         //state
         #endregion
 
@@ -39,11 +41,10 @@ namespace WizardsTournament
 
         void Start()
         {
+            //_teleporter = GetComponent<PlayerTeleporter>();
             _character = new Honovi();//new Character(IOManager.Instance.GetCharacterJSONNode(CharacterName.Honovi));
             StartCoroutine("SetUpBody");
         }
-
-       
 
         /// <summary>
         /// Instantiates and positions the parts of the body of the selected character
@@ -73,7 +74,7 @@ namespace WizardsTournament
                 }
                 catch (Exception ex)
                 {
-                    Debugger.Print("Hands are not ready. " + ex.Message);
+                    Debugger.Log("Hands are not ready. " + ex.Message);
                 }
             }
             #endregion
@@ -84,43 +85,19 @@ namespace WizardsTournament
             _character.rightSpellCaster = rightArm.GetComponent<SpellCaster>();
         }
 
-
         /// <summary>
         /// Receives the information from the inputhandler and sends it to the statemachine to be processed
         /// </summary>
         /// <param name="inputCommand"></param>
         public void ProcessInput(InputCommand inputCommand)
         {
-            #region Dummy code for fast setup
-            switch (inputCommand)
-            {
-                case InputCommand.LeftTriggerPressed:
-                    _character.ProcessInputCommand(inputCommand);
-                    break;
-                case InputCommand.LeftTriggerReleased:
-                    break;
-                case InputCommand.RightTriggerPressed:
-                    _character.ProcessInputCommand(inputCommand);
-                    break;
-                case InputCommand.RightTriggerReleased:
-                    break;
-                case InputCommand.LeftTouchpadPressed:
-                    break;
-                case InputCommand.LeftTouchpadReleased:
-                    break;
-                case InputCommand.RightTouchpadPressed:
-                    break;
-                case InputCommand.RightTouchpadReleased:
-                    break;
-                case InputCommand.LeftGripPressed:
-                    break;
-                case InputCommand.RightGripPressed:
-                    break;
-                default:
-                    break;
-            }
-            #endregion
+            _character.ProcessInputCommand(inputCommand);
         }
+
+        //public void TryToTeleport()
+        //{
+        //    _teleporter.TeleportNow = true;
+        //}
         #endregion
     }
 }
