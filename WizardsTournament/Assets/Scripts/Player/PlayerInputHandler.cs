@@ -66,6 +66,19 @@ namespace WizardsTournament
                 
             }
 
+            if (_device.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
+            {
+                if (hand.Equals(Hand.Left))
+                {
+                    PlayerController.Instance.ProcessInput(InputCommand.LeftGripReleased);
+                }
+                else
+                {
+                    PlayerController.Instance.ProcessInput(InputCommand.RightGripReleased);
+                }
+
+            }
+
             if (_device.GetPressDown( SteamVR_Controller.ButtonMask.Touchpad))
             {
                 OnTouchpadPressed();

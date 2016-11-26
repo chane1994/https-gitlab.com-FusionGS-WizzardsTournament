@@ -94,10 +94,10 @@ namespace WizardsTournament
             _character.ProcessInputCommand(inputCommand);
         }
 
-        //public void TryToTeleport()
-        //{
-        //    _teleporter.TeleportNow = true;
-        //}
+        public void Teleport(Vector3 newPosition)
+        {
+            transform.position = newPosition;//  _teleporter.TeleportNow = true;
+        }
         #endregion
     }
 }

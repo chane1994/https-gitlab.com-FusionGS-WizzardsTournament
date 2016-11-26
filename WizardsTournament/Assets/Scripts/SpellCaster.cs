@@ -9,7 +9,9 @@ namespace WizardsTournament
     public class SpellCaster : MonoBehaviour
     {
         public Transform shotSpawnPositions;
+        const string L_SEAL = "Seal";
 
+        #region Methods
         public void CastSpell(Spell spell)
         {
 
@@ -18,6 +20,18 @@ namespace WizardsTournament
             Vector3 forward = shotSpawnPositions.forward.normalized;
             spellCreated.GetComponent<Rigidbody>().AddForce(forward * spell.Speed);
         }
+
+        public bool TryToTeleport(out Vector3 newPosition)
+        {
+
+            return transform.Find(L_SEAL).gameObject.GetComponent<LaserPointer>().TryDeactivatePlatformLight(out newPosition);
+        }
+
+        public void ShowSeal()
+        {
+            transform.Find(L_SEAL).gameObject.SetActive(true); ;
+        }
+        #endregion
     }
 
 }

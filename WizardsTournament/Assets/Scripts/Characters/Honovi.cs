@@ -6,6 +6,9 @@ using System;
 
 namespace WizardsTournament
 {
+    /// <summary>
+    /// Contains logic and characteristics of Honovi
+    /// </summary>
     public class Honovi : Character
     {
 
@@ -32,12 +35,12 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.LeftTriggerPressed:
-                    leftSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
+                    leftSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000)); //todo remove this by a real spell
                     break;
                 case InputCommand.LeftTriggerReleased:
                     break;
                 case InputCommand.RightTriggerPressed:
-                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000));
+                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000)); //todo remove this by a real spell
                     break;
                 case InputCommand.RightTriggerReleased:
                     break;
@@ -50,9 +53,21 @@ namespace WizardsTournament
                 case InputCommand.RightTouchpadReleased:
                     break;
                 case InputCommand.LeftGripPressed:
+                    //todo activate the seal
+                    break;
+                case InputCommand.LeftGripReleased:
+                    break;
+                case InputCommand.RightGripReleased:
+                    Vector3 newPosition;
+                    if (rightSpellCaster.TryToTeleport(out newPosition))
+                    {
+                        PlayerController.Instance.Teleport(newPosition);
+                    }
+                    //tell the platforms that they have to hide the particle systems
+                    //todo teleport
                     break;
                 case InputCommand.RightGripPressed:
-                  //  PlayerController.Instance.TryToTeleport();
+                    rightSpellCaster.ShowSeal();
                     break;
                 default:
                     break;
