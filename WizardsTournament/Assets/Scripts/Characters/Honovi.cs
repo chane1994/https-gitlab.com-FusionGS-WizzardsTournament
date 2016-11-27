@@ -25,8 +25,8 @@ namespace WizardsTournament
             _spells.Add(TypeOfAttack.UnBreakable, SpellName.SoulSteeler);
             _spells.Add(TypeOfAttack.SummonAttack, SpellName.DeathSummon);
 
-            LeftArmPath = "Prefabs/Characters/Honovi/ModelLeft";
-            RightArmPath = "Prefabs/Characters/Honovi/ModelRight";
+            LeftArmPath = "Prefabs/Characters/Honovi/HonoviLeftHand";
+            RightArmPath = "Prefabs/Characters/Honovi/HonoviRightHand";
         }
 
         #region Methods
@@ -35,14 +35,16 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.LeftTriggerPressed:
-                    leftSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000)); //todo remove this by a real spell
+                    leftSpellCaster.CastBasicSpell(new ExpandibleSpellInfo(4, "Prefabs/Characters/Honovi/Spells/Skull", 1000,1,8)); //todo remove this by a real spell
                     break;
                 case InputCommand.LeftTriggerReleased:
+                    ((HonoviSpellCaster)leftSpellCaster).ThrowSpell();
                     break;
                 case InputCommand.RightTriggerPressed:
-                    rightSpellCaster.CastSpell(new Spell(4, "Prefabs/Spells/Spell", 1000)); //todo remove this by a real spell
+                    rightSpellCaster.CastBasicSpell(new ExpandibleSpellInfo(4, "Prefabs/Characters/Honovi/Spells/Skull", 1000, 1, 8)); //todo remove this by a real spell
                     break;
                 case InputCommand.RightTriggerReleased:
+                    ((HonoviSpellCaster)rightSpellCaster).ThrowSpell();
                     break;
                 case InputCommand.LeftTouchpadPressed:
                     break;

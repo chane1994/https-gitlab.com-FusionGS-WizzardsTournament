@@ -6,17 +6,17 @@ namespace WizardsTournament
     /// <summary>
     /// Contains the information needed to create a spell
     /// </summary>
-    public class Spell 
+    public class SpellInfo 
     {
         #region Properties
-        public float HitPower { get; private set; }
+        public float HitPower { get; protected set; }
 
-        public string PrefabPath { get; private set; }
+        public string PrefabPath { get; protected set; }
 
-        public float Speed { get; private set; }
+        public float Speed { get; protected set; }
         #endregion
 
-        public Spell(float hitPower, string prefabPath, float speed)
+        public SpellInfo(float hitPower, string prefabPath, float speed)
         {
             HitPower = hitPower;
             PrefabPath = prefabPath;
