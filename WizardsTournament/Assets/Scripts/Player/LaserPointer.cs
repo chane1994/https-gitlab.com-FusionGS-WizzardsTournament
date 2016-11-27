@@ -9,6 +9,7 @@ namespace WizardsTournament
         public float thickness = 0.002f;
         public GameObject holder;
         public GameObject pointer;
+        public GameObject pointerParticles;
         //The delegate for these events is in SteamVR_LaserPointer
         public event PointerEventHandler PointerIn;
         public event PointerEventHandler PointerOut;
@@ -37,7 +38,9 @@ namespace WizardsTournament
                 previousContact = null;
             }
            
+
             gameObject.SetActive(false);
+            pointerParticles.SetActive(true);
             return deactivatedLight;
         }
 
@@ -47,13 +50,15 @@ namespace WizardsTournament
             //execute the event handlers
 
             //todo this is temporal
+            pointerParticles.SetActive(false);
             e.target.gameObject.GetComponent<Platform>().UpdateTeleportationIndicator(true);
                 WizardsTournament.Debugger.Log("enter Target");
         }
 
         public virtual void OnPointerOut(PointerEventArgs e)
         {
-                WizardsTournament.Debugger.Log("left Target");
+            pointerParticles.SetActive(true);
+            WizardsTournament.Debugger.Log("left Target");
             e.target.gameObject.GetComponent<Platform>().UpdateTeleportationIndicator(false);
         }
 

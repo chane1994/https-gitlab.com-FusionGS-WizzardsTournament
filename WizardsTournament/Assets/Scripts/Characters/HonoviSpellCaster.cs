@@ -17,6 +17,7 @@ namespace WizardsTournament
         public override void CastBasicSpell(SpellInfo spellInfo)
         {
             GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellInfo.PrefabPath));
+            spellCreated.transform.parent = transform;
             spellCreated.transform.position = shotSpawnPositions.position;
           
             
@@ -30,6 +31,7 @@ namespace WizardsTournament
         /// </summary>
         public virtual void ThrowSpell()
         {
+            _spellOnHold.transform.parent = null;
             _spellOnHold.Move(shotSpawnPositions.forward.normalized);
         }
 
