@@ -11,13 +11,13 @@ namespace WizardsTournament
     /// </summary>
     public class Honovi : Character
     {
-
+        FighterState _fighterState;
 
         public Honovi()
         {
             // create the class from the json NOde
             //  Name = data[L_NAME];
-
+          
             Name = CharacterName.Honovi.ToString();
             _spells = new Dictionary<TypeOfAttack, SpellName>();
             _spells.Add(TypeOfAttack.BasicAttack, SpellName.Skull);
@@ -27,11 +27,14 @@ namespace WizardsTournament
 
             LeftArmPath = "Prefabs/Characters/Honovi/HonoviLeftHand";
             RightArmPath = "Prefabs/Characters/Honovi/HonoviRightHand";
+            _fighterState = new HonoviNormalState();
         }
 
         #region Methods
         public override void ProcessInputCommand(InputCommand inputCommand)
         {
+            _fighterState = _fighterState.HandleInput(inputCommand, leftSpellCaster, rightSpellCaster);
+            /*
             switch (inputCommand)
             {
                 case InputCommand.LeftTriggerPressed:
@@ -51,8 +54,15 @@ namespace WizardsTournament
                 case InputCommand.LeftTouchpadReleased:
                     break;
                 case InputCommand.RightTouchpadPressed:
+                    rightSpellCaster.ShowSeal();
+                   
                     break;
                 case InputCommand.RightTouchpadReleased:
+                    Vector3 newPosition;
+                    if (rightSpellCaster.TryToTeleport(out newPosition))
+                    {
+                        PlayerController.Instance.Teleport(newPosition);
+                    }
                     break;
                 case InputCommand.LeftGripPressed:
                     //todo activate the seal
@@ -60,20 +70,17 @@ namespace WizardsTournament
                 case InputCommand.LeftGripReleased:
                     break;
                 case InputCommand.RightGripReleased:
-                    Vector3 newPosition;
-                    if (rightSpellCaster.TryToTeleport(out newPosition))
-                    {
-                        PlayerController.Instance.Teleport(newPosition);
-                    }
+                
                     //tell the platforms that they have to hide the particle systems
                     //todo teleport
                     break;
                 case InputCommand.RightGripPressed:
-                    rightSpellCaster.ShowSeal();
+                    
                     break;
                 default:
                     break;
             }
+          */
         }
         #endregion
     }
