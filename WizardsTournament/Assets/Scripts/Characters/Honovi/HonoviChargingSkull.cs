@@ -13,10 +13,14 @@ namespace WizardsTournament
                 case InputCommand.LeftTriggerReleased:
                     ((HonoviSpellCaster)leftSpellCaster).ThrowSpell();
                     return new HonoviNormalState();
-          
                 case InputCommand.RightTriggerReleased:
                     ((HonoviSpellCaster)rightSpellCaster).ThrowSpell();
                     return new HonoviNormalState();
+                case InputCommand.RightTouchpadPressed:
+                    ((HonoviSpellCaster)rightSpellCaster).DestroyCurrentSpell();
+                    ((HonoviSpellCaster)leftSpellCaster).DestroyCurrentSpell();
+                    rightSpellCaster.ShowSeal();
+                    return new HonoviTeleportingState();
                 default:
                     return this;
             }

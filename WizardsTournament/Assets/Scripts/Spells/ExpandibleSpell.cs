@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace WizardsTournament
 {
+    /// <summary>
+    /// Spell that will increase in size overtime 
+    /// </summary>
     public class ExpandibleSpell : Spell
     {
         ExpandibleSpellInfo _spellInfo;
@@ -15,15 +18,7 @@ namespace WizardsTournament
             GetComponent<Rigidbody>().isKinematic = true; 
         }
 
-        /// <summary>
-        /// Makes the spell move in a specific direction
-        /// </summary>
-        /// <param name="direction">Direction in which the spell will move</param>
-        public void Move(Vector3 direction) 
-        {
-            GetComponent<Rigidbody>().isKinematic = false;
-            GetComponent<Rigidbody>().AddForce(direction * Speed);
-        }
+      
 
     }
 

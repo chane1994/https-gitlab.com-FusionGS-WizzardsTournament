@@ -8,8 +8,11 @@ namespace WizardsTournament
     /// </summary>
     public class HonoviSpellCaster : SpellCaster
     {
-        ExpandibleSpell _spellOnHold;
+        #region Variables
+        Spell _spellOnHold;
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Creates the spell but does not throw it.
         /// </summary>
@@ -23,7 +26,7 @@ namespace WizardsTournament
             
             Spell spell = spellCreated.GetComponent<Spell>();
             spell.UpdateSpell(spellInfo);
-            _spellOnHold = (ExpandibleSpell)spell;
+            _spellOnHold = spell;
         }
 
         /// <summary>
@@ -32,9 +35,23 @@ namespace WizardsTournament
         public virtual void ThrowSpell()
         {
             _spellOnHold.transform.parent = null;
-            _spellOnHold.Move(shotSpawnPositions.forward.normalized);
+            Rigidbody spellRigidBody = _spellOnHold.GetComponent<Rigidbody>();
+            spellRigidBody.isKinematic = false;
+            spellRigidBody.AddForce(shotSpawnPositions.forward.normalized * _spellOnHold.Speed);
         }
 
+        /// <summary>
+        /// Destroys the skull if it is charging.
+        /// </summary>
+        public virtual void DestroyCurrentSpell()
+        {
+            if (_spellOnHold != null)
+            {
+                _spellOnHold.gameObject.SetActive(false);
+                _spellOnHold = null;
+            }
+        }
+        #endregion
     }
 
 }
