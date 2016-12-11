@@ -9,18 +9,21 @@ namespace WizardsTournament
     public class SpellInfo 
     {
         #region Properties
-        public float HitPower { get; protected set; }
+        public SpellName Name { get; protected set; }
+
+        public float HitPower { get; set; }
 
         public string PrefabPath { get; protected set; }
 
-        public float Speed { get; protected set; }
+        public float Speed { get; set; }
         #endregion
 
-        public SpellInfo(float hitPower, string prefabPath, float speed)
+        public SpellInfo(float hitPower, string prefabPath, float speed, SpellName name)
         {
             HitPower = hitPower;
             PrefabPath = prefabPath;
             Speed = speed;
+            Name = name;
         }
        
     }

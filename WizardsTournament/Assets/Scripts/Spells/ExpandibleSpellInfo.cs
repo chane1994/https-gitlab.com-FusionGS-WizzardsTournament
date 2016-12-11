@@ -14,7 +14,7 @@ namespace WizardsTournament
         public float Increment { get; protected set; }
         #endregion
 
-        public ExpandibleSpellInfo(float hitPower, string prefabPath, float speed, float increment,  float maxHitPower):base(hitPower,prefabPath,speed)
+        public ExpandibleSpellInfo(float hitPower, string prefabPath, float speed, float increment,  float maxHitPower, SpellName name):base(hitPower,prefabPath,speed,name)
         {
             MaxHitPower = maxHitPower;
             Increment = increment;

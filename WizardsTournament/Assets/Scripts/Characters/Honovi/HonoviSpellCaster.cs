@@ -9,15 +9,16 @@ namespace WizardsTournament
     public class HonoviSpellCaster : SpellCaster
     {
         #region Variables
+        public Transform fireballSpawnPoint;
         Spell _spellOnHold;
-        const float POSITION_UPDATE_FREQUENCY = 0.3f;
+        const float POSITION_UPDATE_FREQUENCY = 0.05f;
         Vector3[] _oldPositions;
         #endregion
 
         #region Methods
         void Start()
         {
-            _oldPositions = new Vector3[3];
+            _oldPositions = new Vector3[5];
         }
 
         /// <summary>
@@ -28,7 +29,15 @@ namespace WizardsTournament
         {
             GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellInfo.PrefabPath));
             spellCreated.transform.parent = transform;
-            spellCreated.transform.position = shotSpawnPositions.position;
+            if (spellInfo.Name.Equals(SpellName.Skull))
+            {
+                spellCreated.transform.position = shotSpawnPositions.position;
+            }
+            else
+            {
+                spellCreated.transform.position = fireballSpawnPoint.position;
+            }
+           
           
             
             Spell spell = spellCreated.GetComponent<Spell>();

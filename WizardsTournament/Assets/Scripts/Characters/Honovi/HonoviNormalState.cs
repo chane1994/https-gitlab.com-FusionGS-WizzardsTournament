@@ -11,12 +11,12 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.TriggerPressed:
-                    ((HonoviSpellCaster)spellCaster).CastThrowableSpell(new SpellInfo(3000, "Prefabs/Characters/Honovi/Spells/FireBall", 5));  //todo remove this and get the information from HOnovi.  12/10/2016
+                    ((HonoviSpellCaster)spellCaster).CastThrowableSpell(new SpellInfo(3000, "Prefabs/Characters/Honovi/Spells/FireBall", 6.5f,SpellName.Fireball));  //todo remove this and get the information from HOnovi.  12/10/2016
                     return new HonoviHoldingFireBall();
                 case InputCommand.GripPressed:
                     if (hand.Equals(Hand.Left))
                     {
-                        spellCaster.CastBasicSpell(new ExpandibleSpellInfo(4, "Prefabs/Characters/Honovi/Spells/Skull", 2000, 1, 8)); //todo remove this and get the information from HOnovi 12/10/2016
+                        spellCaster.CastBasicSpell(new ExpandibleSpellInfo(4, "Prefabs/Characters/Honovi/Spells/Skull", 2000, 1, 8,SpellName.Skull)); //todo remove this and get the information from HOnovi 12/10/2016
                         return new HonoviChargingSkullState();
                     }
                     else
