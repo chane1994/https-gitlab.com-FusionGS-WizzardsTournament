@@ -27,7 +27,7 @@ namespace WizardsTournament
 
         public bool TryToTeleport(out Vector3 newPosition)
         {
-
+          //  transform.Find(L_SEAL).gameObject.SetActive(false);
             return transform.Find(L_SEAL).gameObject.GetComponent<LaserPointer>().TryDeactivatePlatformLight(out newPosition);
         }
 

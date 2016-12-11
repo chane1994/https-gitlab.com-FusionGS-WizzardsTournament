@@ -4,19 +4,28 @@ using System;
 
 namespace WizardsTournament
 {
-    public class HonoviTeleportingState : FighterState
+    public class HonoviTeleportingState : HandState
     {
-        public override FighterState HandleInput(InputCommand inputCommand, SpellCaster leftSpellCaster, SpellCaster rightSpellCaster)
+        public override HandState HandleInput(InputCommand inputCommand, SpellCaster spellCaster, Hand hand )
         {
             switch (inputCommand)
             {
-                case InputCommand.RightTouchpadReleased:
-                    Vector3 newPosition;
-                    if (rightSpellCaster.TryToTeleport(out newPosition))
+                case InputCommand.TouchpadReleased:
+                    if (hand.Equals(Hand.Left))
                     {
-                        PlayerController.Instance.Teleport(newPosition);
+                        return this;
                     }
-                    return new HonoviNormalState();
+                    else
+                    {
+                        Vector3 newPosition;
+                        if (spellCaster.TryToTeleport(out newPosition))
+                        {
+                            PlayerController.Instance.Teleport(newPosition);
+                        }
+
+                        return new HonoviNormalState();
+                    }
+                    
                 default:
                     return this;
             }

@@ -10,9 +10,16 @@ namespace WizardsTournament
     {
         #region Variables
         Spell _spellOnHold;
+        const float POSITION_UPDATE_FREQUENCY = 0.3f;
+        Vector3[] _oldPositions;
         #endregion
 
         #region Methods
+        void Start()
+        {
+            _oldPositions = new Vector3[3];
+        }
+
         /// <summary>
         /// Creates the spell but does not throw it.
         /// </summary>
@@ -30,14 +37,27 @@ namespace WizardsTournament
         }
 
         /// <summary>
+        /// Creates a spell that will be thrown later on.
+        /// </summary>
+        /// <param name="spellInfo">Information to create the spell</param>
+        public virtual void CastThrowableSpell(SpellInfo spellInfo)
+        {
+            CastBasicSpell(spellInfo);
+            _spellOnHold.GetComponent<Rigidbody>().isKinematic = true;
+            InvokeRepeating("UpdatePosition", POSITION_UPDATE_FREQUENCY, POSITION_UPDATE_FREQUENCY);
+        }
+
+
+        /// <summary>
         /// Throws a spell that was already created
         /// </summary>
-        public virtual void ThrowSpell()
+        public virtual void ImpulseSpell()
         {
             _spellOnHold.transform.parent = null;
             Rigidbody spellRigidBody = _spellOnHold.GetComponent<Rigidbody>();
             spellRigidBody.isKinematic = false;
             spellRigidBody.AddForce(shotSpawnPositions.forward.normalized * _spellOnHold.Speed);
+            _spellOnHold = null;
         }
 
         /// <summary>
@@ -49,7 +69,42 @@ namespace WizardsTournament
             {
                 _spellOnHold.gameObject.SetActive(false);
                 _spellOnHold = null;
+                CancelInvoke("UpdatePosition");
             }
+
+        }
+
+        /// <summary>
+        /// Throws a spell. The direction and speed will depend on the movement of your hand
+        /// </summary>
+        public virtual void ThrowSpell()
+        {
+            _spellOnHold.transform.parent = null;
+             CancelInvoke("UpdatePosition");
+            Rigidbody rigidBody = _spellOnHold.GetComponent<Rigidbody>();
+            rigidBody.isKinematic = false;
+            Vector3 direction = _oldPositions[0] - _oldPositions[1];
+            float velocity = FusionGameStudios.Physics.AverageVelocity(_oldPositions, POSITION_UPDATE_FREQUENCY);
+            Debugger.Log(velocity.ToString());
+            rigidBody.AddForceAtPosition(direction.normalized * velocity * _spellOnHold.Speed, Vector3.zero, ForceMode.Impulse);
+            _spellOnHold = null;
+        }
+
+        /// <summary>
+        /// Updates the _oldPositions array with the position values of the spell to calculate the velocity of a spell that will be thrown
+        /// </summary>
+        void UpdatePosition()
+        {
+           
+                //shifting the values
+                for (int i = _oldPositions.Length - 1; i >= 1; i--)
+                {
+                    _oldPositions[i] = _oldPositions[i - 1];
+                }
+                _oldPositions[0] = _spellOnHold.transform.position;
+              //  Debugger.Log(_oldPositions[0].ToString());
+           
+           
         }
         #endregion
     }

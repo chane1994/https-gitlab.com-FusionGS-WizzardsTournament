@@ -3,11 +3,11 @@ using System.Collections;
 
 namespace WizardsTournament
 {
-    public abstract class FighterState 
+    public abstract class HandState 
     {
         bool _readyToSummon;
 
-        public abstract FighterState HandleInput(InputCommand inputCommand, SpellCaster leftSpellCaster, SpellCaster rightSpellCaster);
+        public abstract HandState HandleInput(InputCommand inputCommand, SpellCaster spellCaster, Hand hand);
     }
 }
 

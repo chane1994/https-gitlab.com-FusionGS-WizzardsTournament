@@ -89,9 +89,9 @@ namespace WizardsTournament
         /// Receives the information from the inputhandler and sends it to the statemachine to be processed
         /// </summary>
         /// <param name="inputCommand"></param>
-        public void ProcessInput(InputCommand inputCommand)
+        public void ProcessInput(InputCommand inputCommand, Hand hand)
         {
-            _character.ProcessInputCommand(inputCommand);
+            _character.ProcessInputCommand(inputCommand,hand);
         }
 
         public void Teleport(Vector3 newPosition)

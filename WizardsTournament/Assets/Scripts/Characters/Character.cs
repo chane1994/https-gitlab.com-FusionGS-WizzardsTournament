@@ -13,7 +13,7 @@ namespace WizardsTournament
         #region Variables
         public SpellCaster leftSpellCaster; 
         public SpellCaster rightSpellCaster;
-        protected Dictionary<TypeOfAttack, SpellName> _spells;
+       // protected Dictionary<TypeOfAttack, SpellName> _spells;
         #endregion
 
         #region Properties
@@ -25,7 +25,7 @@ namespace WizardsTournament
 
         #endregion
 
-        public abstract void ProcessInputCommand(InputCommand inputCommand);
+        public abstract void ProcessInputCommand(InputCommand inputCommand, Hand hand);
     }
 
 }
