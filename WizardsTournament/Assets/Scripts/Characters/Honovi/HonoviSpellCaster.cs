@@ -13,6 +13,7 @@ namespace WizardsTournament
         Spell _spellOnHold;
         const float POSITION_UPDATE_FREQUENCY = 0.05f;
         Vector3[] _oldPositions;
+        FixedJoint _joint;
         #endregion
 
         #region Methods
@@ -25,11 +26,12 @@ namespace WizardsTournament
         /// Creates the spell but does not throw it.
         /// </summary>
         /// <param name="spellInfo">Information to create the spell</param>
-        public override void CastBasicSpell(SpellInfo spellInfo)
+        public override void CastBasicSpell(string spellPath)
         {
-            GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellInfo.PrefabPath));
+            GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellPath));
             spellCreated.transform.parent = transform;
-            if (spellInfo.Name.Equals(SpellName.Skull))
+            Spell spell = spellCreated.GetComponent<Spell>();
+            if (spell.Name.Equals(SpellName.Skull))
             {
                 spellCreated.transform.position = shotSpawnPositions.position;
             }
@@ -37,24 +39,30 @@ namespace WizardsTournament
             {
                 spellCreated.transform.position = fireballSpawnPoint.position;
             }
-           
-          
-            
-            Spell spell = spellCreated.GetComponent<Spell>();
-            spell.UpdateSpell(spellInfo);
+
+
+
+
+            // spell.UpdateSpell(spellInfo);
             _spellOnHold = spell;
         }
+
 
         /// <summary>
         /// Creates a spell that will be thrown later on.
         /// </summary>
         /// <param name="spellInfo">Information to create the spell</param>
-        public virtual void CastThrowableSpell(SpellInfo spellInfo)
+        public virtual void CastThrowableSpell(string spellPath)
         {
-            CastBasicSpell(spellInfo);
-            _spellOnHold.GetComponent<Rigidbody>().isKinematic = true;
-            InvokeRepeating("UpdatePosition", POSITION_UPDATE_FREQUENCY, POSITION_UPDATE_FREQUENCY);
+            GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellPath));
+            //  var go = GameObject.Instantiate(prefab);
+            spellCreated.transform.position = fireballSpawnPoint.position;
+
+            _joint = spellCreated.AddComponent<FixedJoint>();
+            _joint.connectedBody = fireballSpawnPoint.GetComponent<Rigidbody>();
+            _spellOnHold = spellCreated.GetComponent<Spell>();
         }
+
 
 
         /// <summary>
@@ -83,37 +91,56 @@ namespace WizardsTournament
 
         }
 
+
         /// <summary>
         /// Throws a spell. The direction and speed will depend on the movement of your hand
         /// </summary>
-        public virtual void ThrowSpell()
+        public virtual void ThrowSpell(PlayerInputHandler inputHandler)
         {
-            _spellOnHold.transform.parent = null;
-             CancelInvoke("UpdatePosition");
-            Rigidbody rigidBody = _spellOnHold.GetComponent<Rigidbody>();
-            rigidBody.isKinematic = false;
-            Vector3 direction = _oldPositions[0] - _oldPositions[1];
-            float velocity = FusionGameStudios.Physics.AverageVelocity(_oldPositions, POSITION_UPDATE_FREQUENCY);
-            Debugger.Log(velocity.ToString());
-            rigidBody.AddForceAtPosition(direction.normalized * velocity * _spellOnHold.Speed, Vector3.zero, ForceMode.Impulse);
-            _spellOnHold = null;
+            var go = _joint.gameObject;
+            var rigidbody = go.GetComponent<Rigidbody>();
+            Object.DestroyImmediate(_joint);
+            _joint = null;
+            Object.Destroy(go, 15.0f);
+
+            ((ThrowableSpell)_spellOnHold).Release(); //todo modify the spell
+
+
+            // We should probably apply the offset between trackedObj.transform.position
+            // and device.transform.pos to insert into the physics sim at the correct
+            // location, however, we would then want to predict ahead the visual representation
+            // by the same amount we are predicting our render poses.
+            //SteamVR_TrackedObject trackedObj = PlayerController.Instance.leftController.GetComponent<SteamVR_TrackedObject>();
+            var origin = inputHandler.TrackedObject.origin ? inputHandler.TrackedObject.origin : inputHandler.TrackedObject.transform.parent;
+            if (origin != null)
+            {
+                rigidbody.velocity = origin.TransformVector(inputHandler.Device.velocity);
+                rigidbody.angularVelocity = origin.TransformVector(inputHandler.Device.angularVelocity);
+            }
+            else
+            {
+                rigidbody.velocity = inputHandler.Device.velocity;
+                rigidbody.angularVelocity = inputHandler.Device.angularVelocity;
+            }
+
+            rigidbody.maxAngularVelocity = rigidbody.angularVelocity.magnitude;
         }
+
 
         /// <summary>
         /// Updates the _oldPositions array with the position values of the spell to calculate the velocity of a spell that will be thrown
         /// </summary>
         void UpdatePosition()
         {
-           
-                //shifting the values
-                for (int i = _oldPositions.Length - 1; i >= 1; i--)
-                {
-                    _oldPositions[i] = _oldPositions[i - 1];
-                }
-                _oldPositions[0] = _spellOnHold.transform.position;
-              //  Debugger.Log(_oldPositions[0].ToString());
-           
-           
+
+            //shifting the values
+            for (int i = _oldPositions.Length - 1; i >= 1; i--)
+            {
+                _oldPositions[i] = _oldPositions[i - 1];
+            }
+            _oldPositions[0] = _spellOnHold.transform.position;
+
+
         }
         #endregion
     }

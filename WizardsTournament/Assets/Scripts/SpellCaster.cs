@@ -12,15 +12,28 @@ namespace WizardsTournament
         const string L_SEAL = "Seal";
 
         #region Methods
-        public virtual void CastBasicSpell(SpellInfo spellInfo)
+        //public virtual void CastBasicSpell(SpellInfo spellInfo)
+        //{
+
+        //    GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellInfo.PrefabPath));
+        //    spellCreated.transform.position = shotSpawnPositions.position;
+        //    Vector3 forward = shotSpawnPositions.forward.normalized;
+
+        //    Spell spell = spellCreated.GetComponent<Spell>();
+        //    spell.UpdateSpell(spellInfo);
+        //    spellCreated.GetComponent<Rigidbody>().AddForce(forward * spell.Speed);
+
+        //}
+
+        public virtual void CastBasicSpell(string spellPath)
         {
 
-            GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellInfo.PrefabPath));
+            GameObject spellCreated = Instantiate(Resources.Load<GameObject>(spellPath));
             spellCreated.transform.position = shotSpawnPositions.position;
             Vector3 forward = shotSpawnPositions.forward.normalized;
 
             Spell spell = spellCreated.GetComponent<Spell>();
-            spell.UpdateSpell(spellInfo);
+           // spell.UpdateSpell(spellInfo);
             spellCreated.GetComponent<Rigidbody>().AddForce(forward * spell.Speed);
 
         }

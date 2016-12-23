@@ -14,7 +14,15 @@ namespace WizardsTournament
             switch (inputCommand)
             {
                 case InputCommand.TriggerReleased:
-                   ((HonoviSpellCaster)spellCaster).ThrowSpell();
+                    if (hand.Equals(Hand.Left))
+                    {
+                        ((HonoviSpellCaster)spellCaster).ThrowSpell(PlayerController.Instance.leftController.GetComponent<PlayerInputHandler>());
+                    }
+                    else
+                    {
+                        ((HonoviSpellCaster)spellCaster).ThrowSpell(PlayerController.Instance.rightController.GetComponent<PlayerInputHandler>());
+                    }
+                   
                     return new HonoviNormalState();
                 case InputCommand.TouchpadPressed:
                     if (hand.Equals(Hand.Left))
