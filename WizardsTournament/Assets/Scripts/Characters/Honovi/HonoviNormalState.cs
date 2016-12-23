@@ -26,7 +26,8 @@ namespace WizardsTournament
                 case InputCommand.TouchpadPressed:
                     if (hand.Equals(Hand.Left))
                     {
-                        return this;
+                        spellCaster.ShowShield(true);
+                        return new HonoviHoldingShieldState();
                     }
                     else
                     {

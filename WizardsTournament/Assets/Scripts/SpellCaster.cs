@@ -9,6 +9,8 @@ namespace WizardsTournament
     public class SpellCaster : MonoBehaviour
     {
         public Transform shotSpawnPositions;
+        public GameObject shield;
+        public GameObject teleportationSeal;
         const string L_SEAL = "Seal";
 
         #region Methods
@@ -41,12 +43,25 @@ namespace WizardsTournament
         public bool TryToTeleport(out Vector3 newPosition)
         {
           //  transform.Find(L_SEAL).gameObject.SetActive(false);
-            return transform.Find(L_SEAL).gameObject.GetComponent<LaserPointer>().TryDeactivatePlatformLight(out newPosition);
+          return teleportationSeal.GetComponent<LaserPointer>().TryDeactivatePlatformLight(out newPosition);
+            //return transform.Find(L_SEAL).gameObject.GetComponent<LaserPointer>().TryDeactivatePlatformLight(out newPosition);
         }
 
+        /// <summary>
+        /// Activates the game object that has the teleportation seal
+        /// </summary>
         public void ShowSeal()
         {
-            transform.Find(L_SEAL).gameObject.SetActive(true); ;
+            teleportationSeal.SetActive(true);
+           // transform.Find(L_SEAL).gameObject.SetActive(true); 
+        }
+
+        /// <summary>
+        /// Activate the shield game object
+        /// </summary>
+        public void ShowShield(bool activate)//todo this will probably change when you add the hit power to the shield and spells
+        {
+            shield.SetActive(activate);
         }
         #endregion
     }

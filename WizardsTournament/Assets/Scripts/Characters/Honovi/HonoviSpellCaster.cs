@@ -82,6 +82,7 @@ namespace WizardsTournament
         /// </summary>
         public virtual void DestroyCurrentSpell()
         {
+            ShowShield(false);
             if (_spellOnHold != null)
             {
                 _spellOnHold.gameObject.SetActive(false);
