@@ -21,6 +21,7 @@ namespace WizardsTournament
                     }
                     else
                     {
+                        spellCaster.ActivateSpellSeal("Prefabs/Characters/Honovi/Spells/SpellSeal");
                         return this;
                     }
                 case InputCommand.TouchpadPressed:
