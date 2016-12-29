@@ -14,7 +14,7 @@ namespace WizardsTournament
         public GameObject teleportationSeal;
         public Transform spellSealSpawningPoint;
         const string L_SEAL = "Seal";
-        protected GameObject _spellSeal;
+    
         #endregion
 
         #region Methods
@@ -70,18 +70,9 @@ namespace WizardsTournament
 
         public void ActivateSpellSeal(string spellSealPath)
         {
-            _spellSeal = Instantiate(Resources.Load<GameObject>(spellSealPath));
-            _spellSeal.transform.position = spellSealSpawningPoint.position;
-            _spellSeal.transform.rotation = spellSealSpawningPoint.rotation;
-            //change its parent
-            //update its position
-
-
-        }
-
-        public void HideSpellSeal()
-        {
-            _spellSeal.SetActive(false);
+            GameObject spellSeal = Instantiate(Resources.Load<GameObject>(spellSealPath));
+            spellSeal.transform.position = spellSealSpawningPoint.position;
+            spellSeal.transform.rotation = spellSealSpawningPoint.rotation;
         }
         #endregion
     }
