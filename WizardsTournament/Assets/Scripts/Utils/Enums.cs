@@ -12,4 +12,6 @@ namespace WizardsTournament
     public enum TypeOfAttack { BasicAttack, ContinuousAttack, SummonAttack, SpecialAvility, UnBreakable}
 
     public enum CharacterName { Honovi, Vulcan, Angel}
+
+    public enum Symbol { Fire, Light, Darkness, Electricity, HonoviClan, Strength}
 }
