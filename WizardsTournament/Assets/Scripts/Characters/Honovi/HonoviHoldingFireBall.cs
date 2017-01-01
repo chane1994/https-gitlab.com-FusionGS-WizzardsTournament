@@ -22,7 +22,7 @@ namespace WizardsTournament
                     {
                         ((HonoviSpellCaster)spellCaster).ThrowSpell(PlayerController.Instance.rightController.GetComponent<PlayerInputHandler>());
                     }
-                   
+                    spellCaster.GetComponent<Collider>().enabled = true;
                     return new HonoviNormalState();
                 case InputCommand.TouchpadPressed:
                     if (hand.Equals(Hand.Left))
@@ -33,6 +33,7 @@ namespace WizardsTournament
                     {
                         ((HonoviSpellCaster)spellCaster).DestroyCurrentSpell();
                         spellCaster.ShowSeal();
+                        PlayerController.Instance.UpdateHandColliders(false);
                         return new HonoviTeleportingState();
                     }
                         

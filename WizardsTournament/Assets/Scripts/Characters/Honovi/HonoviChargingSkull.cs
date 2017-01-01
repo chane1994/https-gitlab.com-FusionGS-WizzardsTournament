@@ -17,6 +17,7 @@ namespace WizardsTournament
                     if (hand.Equals(Hand.Left))
                     {
                         ((HonoviSpellCaster)spellCaster).ImpulseSpell();
+                        spellCaster.GetComponent<Collider>().enabled = true;
                         return new HonoviNormalState();
                     }
                     else
@@ -32,6 +33,7 @@ namespace WizardsTournament
                     {
                         ((HonoviSpellCaster)spellCaster).DestroyCurrentSpell();
                         spellCaster.ShowSeal();
+                        PlayerController.Instance.UpdateHandColliders(false);
                         return new HonoviTeleportingState();
                     }
                 default:

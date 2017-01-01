@@ -73,6 +73,8 @@ namespace WizardsTournament
             GameObject spellSeal = Instantiate(Resources.Load<GameObject>(spellSealPath));
             spellSeal.transform.position = spellSealSpawningPoint.position;
             spellSeal.transform.rotation = spellSealSpawningPoint.rotation;
+            spellSeal.GetComponent<SpellSeal>().validColliders = PlayerController.Instance.GetHandColliders();
+
         }
         #endregion
     }

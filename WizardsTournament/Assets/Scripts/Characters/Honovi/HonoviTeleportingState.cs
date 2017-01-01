@@ -22,7 +22,7 @@ namespace WizardsTournament
                         {
                             PlayerController.Instance.Teleport(newPosition);
                         }
-
+                        PlayerController.Instance.UpdateHandColliders(true);
                         return new HonoviNormalState();
                     }
                     

@@ -46,6 +46,23 @@ namespace WizardsTournament
             StartCoroutine("SetUpBody");
         }
 
+        public Collider[] GetHandColliders()
+        {
+            Collider[] handColliders = new Collider[2];
+            handColliders[0] = _character.leftSpellCaster.GetComponent<Collider>();
+            handColliders[1] = _character.rightSpellCaster.GetComponent<Collider>();
+            return handColliders;
+        }
+
+        public void UpdateHandColliders(bool enable)
+        {
+            Collider[] handColliders = GetHandColliders();
+            for (int i = 0; i < handColliders.Length; i++)
+            {
+                handColliders[i].enabled = enable;
+            }
+        }
+
         /// <summary>
         /// Instantiates and positions the parts of the body of the selected character
         /// </summary>

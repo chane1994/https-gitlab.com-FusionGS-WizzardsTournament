@@ -13,6 +13,7 @@ namespace WizardsTournament
                     if (hand.Equals(Hand.Left))
                     {
                         spellCaster.ShowShield(false);
+                        spellCaster.GetComponent<Collider>().enabled = true;
                         return new HonoviNormalState();
                     }
                     else

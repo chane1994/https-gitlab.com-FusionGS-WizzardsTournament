@@ -8,6 +8,7 @@ namespace WizardsTournament
     /// </summary>
     public class SpellSeal : MonoBehaviour
     {
+        public Collider[] validColliders;
         SymbolHandler[] _symbolHandlers;
         int _firstSymbolindex = -1;
 
@@ -37,28 +38,28 @@ namespace WizardsTournament
         /// <param name="symbol">Symbol of the trigger that was touched</param>
         void OnSymbolSelected(Collider collider, Symbol symbol)
         {
-
-            for (int i = 0; i < _symbolHandlers.Length; i++) //find the selected symbol and deactivate the trigger
+            if(validColliders[0].Equals(collider) || validColliders[1].Equals(collider)) //avoids that the seal activates with something different than the summoner's hands
             {
-                if (_symbolHandlers[i].symbol.Equals(symbol))
+                for (int i = 0; i < _symbolHandlers.Length; i++) //find the selected symbol and deactivate the trigger
                 {
-
-                    if (_firstSymbolindex < 0) //if it was the first one save the index because it will be activated later
+                    if (_symbolHandlers[i].symbol.Equals(symbol))
                     {
-                        _firstSymbolindex = i;
-                    }
-                    else
-                    {
-                        _symbolHandlers[_firstSymbolindex].GetComponent<MeshCollider>().enabled = true;
-                    }
 
-                    _symbolHandlers[i].GetComponent<MeshCollider>().enabled = false;
-                    break;
+                        if (_firstSymbolindex < 0) //if it was the first one save the index because it will be activated later
+                        {
+                            _firstSymbolindex = i;
+                        }
+                        else
+                        {
+                            _symbolHandlers[_firstSymbolindex].GetComponent<MeshCollider>().enabled = true;
+                        }
+
+                        _symbolHandlers[i].GetComponent<MeshCollider>().enabled = false;
+                        break;
+                    }
                 }
+                Debugger.Log(symbol.ToString());
             }
-
-
-            Debugger.Log(symbol.ToString());
         }
     }
 

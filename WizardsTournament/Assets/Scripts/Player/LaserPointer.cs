@@ -67,7 +67,7 @@ namespace WizardsTournament
 
             float dist = 100f;
 
-            SteamVR_TrackedController controller = GetComponent<SteamVR_TrackedController>();
+            SteamVR_TrackedController controller = GetComponent<SteamVR_TrackedController>(); //todo modify this method. You are doing a lot of ineficient things here. 
 
             Ray raycast = new Ray(transform.position, transform.forward);
             RaycastHit hit;
