@@ -6,7 +6,7 @@ namespace WizardsTournament
     {
         public static bool print = true;
 
-        public static void Print(string text)
+        public static void Log(string text)
         {
             if (print)
             {

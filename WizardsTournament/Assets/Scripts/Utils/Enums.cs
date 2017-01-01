@@ -3,13 +3,15 @@ using System.Collections;
 
 namespace WizardsTournament
 {
-    public enum InputCommand { LeftTriggerPressed, LeftTriggerReleased, RightTriggerPressed, RightTriggerReleased, LeftTouchpadPressed, LeftTouchpadReleased, RightTouchpadPressed, RightTouchpadReleased, LeftGripPressed, RightGripPressed }
+    public enum InputCommand { TriggerPressed, TriggerReleased, TouchpadPressed, TouchpadReleased, GripPressed, GripReleased, LeftTriggerPressed, LeftTriggerReleased, RightTriggerPressed, RightTriggerReleased, LeftTouchpadPressed, LeftTouchpadReleased, RightTouchpadPressed, RightTouchpadReleased, LeftGripPressed, LeftGripReleased, RightGripPressed, RightGripReleased }
 
     public enum Hand { Left, Right}
 
-    public enum SpellName { Skull, SoulSteeler, HologramTeleporter, DeathSummon   }
+    public enum SpellName { Skull, Fireball, HologramTeleporter, DeathSummon   }
 
     public enum TypeOfAttack { BasicAttack, ContinuousAttack, SummonAttack, SpecialAvility, UnBreakable}
 
     public enum CharacterName { Honovi, Vulcan, Angel}
+
+    public enum Symbol { Fire, Light, Darkness, Electricity, HonoviClan, Strength}
 }
