@@ -73,10 +73,10 @@ namespace WizardsTournament
             RaycastHit hit;
             bool bHit = Physics.Raycast(raycast, out hit);
 
-            if ( previousContact && 
-                (!hit.transform || !previousContact.Equals( hit.transform.gameObject)&&
-                                    !hit.transform.gameObject.tag.Equals(POINTER_TAG)))
+            if ( previousContact && !hit.transform )
             {
+                
+
                 PointerEventArgs args = new PointerEventArgs();
                 if (controller != null)
                 {
