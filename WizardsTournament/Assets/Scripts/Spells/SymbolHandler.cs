@@ -8,15 +8,18 @@ namespace WizardsTournament
     /// </summary>
     public class SymbolHandler : MonoBehaviour
     {
-        public delegate void SymbolSummoner(Collider collider, Symbol symbol);
+        public delegate void SymbolSummoner(SymbolHandler symbolHandler, Collider collider);
         public SymbolSummoner symbolSummonerEventHandler;
         public Symbol symbol;
 
+        /// <summary>
+        /// Triggers all the events that are subscribed to symbolSummonerEventHandler and deactivates its MeshCollider
+        /// </summary>
+        /// <param name="collider">Collider component of the GameObject that hit the MeshCollider in this GameObject</param>
         void OnTriggerEnter(Collider collider)
         {
-            
-          //  Debugger.Log(collider.gameObject.name);
-            symbolSummonerEventHandler(collider, symbol);
+            symbolSummonerEventHandler(this, collider);
+            GetComponent<MeshCollider>().enabled = false;
         }
 
       

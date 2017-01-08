@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace WizardsTournament
 {
@@ -68,13 +69,14 @@ namespace WizardsTournament
             shield.SetActive(activate);
         }
 
-        public void ActivateSpellSeal(string spellSealPath)
+        public void ActivateSpellSeal(string spellSealPath, Dictionary<string,string> patternsAndSpells)
         {
-            GameObject spellSeal = Instantiate(Resources.Load<GameObject>(spellSealPath));
-            spellSeal.transform.position = spellSealSpawningPoint.position;
-            spellSeal.transform.rotation = spellSealSpawningPoint.rotation;
-            spellSeal.GetComponent<SpellSeal>().validColliders = PlayerController.Instance.GetHandColliders();
-
+            GameObject spellSealGameObject = Instantiate(Resources.Load<GameObject>(spellSealPath));
+            spellSealGameObject.transform.position = spellSealSpawningPoint.position;
+            spellSealGameObject.transform.rotation = spellSealSpawningPoint.rotation;
+            SpellSeal spellSeal = spellSealGameObject.GetComponent<SpellSeal>();
+            spellSeal.validColliders = PlayerController.Instance.GetHandColliders();
+            spellSeal.patternsAndSpells = patternsAndSpells;
         }
         #endregion
     }

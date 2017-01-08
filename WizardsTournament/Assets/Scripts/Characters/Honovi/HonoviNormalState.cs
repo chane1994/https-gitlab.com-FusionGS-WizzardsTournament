@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 namespace WizardsTournament
 {
     public class HonoviNormalState : HandState
     {
+        public Dictionary<string, string> patternsAndSpells;
+
+        public HonoviNormalState()
+        {
+            patternsAndSpells = new Dictionary<string, string>();
+            patternsAndSpells.Add("DarknessFireDarkness", "Prefabs/Characters/Honovi/Spells/FallingSkull");
+        }
+
         public override HandState HandleInput(InputCommand inputCommand, SpellCaster spellCaster, Hand hand)
         {
             switch (inputCommand)
@@ -23,7 +32,7 @@ namespace WizardsTournament
                     }
                     else
                     {
-                        spellCaster.ActivateSpellSeal("Prefabs/Characters/Honovi/Spells/HonoviSpellSeal");
+                        spellCaster.ActivateSpellSeal("Prefabs/Characters/Honovi/Spells/HonoviSpellSeal",patternsAndSpells);
                         return this;
                     }
                 case InputCommand.TouchpadPressed:

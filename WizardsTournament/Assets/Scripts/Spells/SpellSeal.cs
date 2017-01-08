@@ -15,7 +15,8 @@ namespace WizardsTournament
         SymbolHandler _firstSymbolHandler;
         protected float lifeTime = 8;
         StringBuilder _currentCombination;
-        protected KeyValuePair<string, ISummonable>[] _validCombinations;
+       // protected KeyValuePair<string, ISummonable>[] _validCombinations;
+        public Dictionary<string, string> patternsAndSpells;
         bool _activateFirstSymbol = false;
         #endregion
 
@@ -23,7 +24,7 @@ namespace WizardsTournament
         void Start()
         {
             //TODO populate the validCombinations array
-            _validCombinations = new KeyValuePair<string, ISummonable>[2] { new KeyValuePair<string, ISummonable>("LightFireLight",null), new KeyValuePair<string, ISummonable>("StrengthFireLightStrength", null) };
+          //  _validCombinations = new KeyValuePair<string, ISummonable>[2] { new KeyValuePair<string, ISummonable>("LightFireLight",null), new KeyValuePair<string, ISummonable>("StrengthFireLightStrength", null) };
 
             Invoke("DestroySpellSeal", lifeTime);
             //   
@@ -45,7 +46,7 @@ namespace WizardsTournament
         /// </summary>
         /// <param name="collider"></param>
         /// <param name="symbol">Symbol of the trigger that was touched</param>
-        void OnSymbolSelected(SymbolHandler symbolHandler, Collider collider) 
+        protected virtual void OnSymbolSelected(SymbolHandler symbolHandler, Collider collider) 
         {
             if(validColliders[0].Equals(collider) || validColliders[1].Equals(collider)) //avoids that the seal activates with something different than the summoner's hands
             {
@@ -76,18 +77,25 @@ namespace WizardsTournament
         /// <summary>
         /// Compares the current combination to all the valid ones and executes the ISummonable if it finds a match.
         /// </summary>
-        void TrySummonSpell()
+        protected virtual void TrySummonSpell()
         {
             string currentCombination = _currentCombination.ToString();
-            for (int i = 0; i < _validCombinations.Length; i++)
+            string spellPath = null;
+            if (patternsAndSpells.TryGetValue(currentCombination,out spellPath))
             {
-                if (currentCombination.Equals(_validCombinations[i].Key))
-                {
-                    Debugger.Log("It is a valid combination");
-                   // _validCombinations[i].Value.Activate();
-                    break;
-                }
+                Instantiate(Resources.Load<GameObject>(spellPath));
             }
+
+            //for (int i = 0; i < _validCombinations.Length; i++)
+            //{
+            //    if (currentCombination.Equals(_validCombinations[i].Key))
+            //    {
+            //        Debugger.Log("It is a valid combination");
+            //        //todo call the referee and tell him to cast the spell with the name that matches the combination
+            //       // _validCombinations[i].Value.Activate();
+            //        break;
+            //    }
+            //}
 
             DestroySpellSeal();
         }
