@@ -53,6 +53,7 @@ namespace WizardsTournament
             Debugger.Log("THe falling skull hit " + collision.rigidbody.gameObject.name);
             //todo activate the particle system
             // collision.rigidbody.gameObject
+            explotion.transform.position = collision.contacts[0].point;
             explotion.SetActive(true);
             DestroyObject(gameObject,0.6f);
         }
