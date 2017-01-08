@@ -36,7 +36,7 @@ namespace WizardsTournament
         void Start()
         {
             //get the information from the referee to know where to position. You will get a transform
-            Transform targetTransform = GameObject.Find("Enemy").transform; //todo replace for a call to the referee
+            Transform targetTransform = Referee.Instance.EnemyTransform;//GameObject.Find("Enemy").transform; //todo replace for a call to the referee
             transform.position = new Vector3(targetTransform.position.x, targetTransform.position.y + height, targetTransform.position.z);
             explotion = transform.GetChild(0).gameObject;
             GetComponent<MeshRenderer>().enabled = true;
