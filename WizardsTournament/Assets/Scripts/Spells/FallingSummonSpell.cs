@@ -11,6 +11,7 @@ namespace WizardsTournament
         #region Variables
         public float height;
         GameObject explotion;
+        GameObject skull;
         #endregion
         /*
         void Start()
@@ -39,7 +40,9 @@ namespace WizardsTournament
             Transform targetTransform = Referee.Instance.EnemyTransform;//GameObject.Find("Enemy").transform; //todo replace for a call to the referee
             transform.position = new Vector3(targetTransform.position.x, targetTransform.position.y + height, targetTransform.position.z);
             explotion = transform.GetChild(0).gameObject;
-            GetComponent<MeshRenderer>().enabled = true;
+            skull = transform.GetChild(1).gameObject;
+            skull.SetActive(true);
+           // GetComponent<MeshRenderer>().enabled = true;
             GetComponent<Rigidbody>().isKinematic = false;
            // _spellBody.SetActive(true);
             GetComponent<Rigidbody>().AddForce(transform.up * -Speed, ForceMode.Impulse);
@@ -48,14 +51,16 @@ namespace WizardsTournament
         void OnCollisionEnter(Collision collision)
         {
             //_spellBody.SetActive(false);
-            GetComponent<MeshRenderer>().enabled = false;
+            // GetComponent<MeshRenderer>().enabled = false;
+            skull.SetActive(false);
             GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Collider>().enabled = false;
             Debugger.Log("THe falling skull hit " + collision.rigidbody.gameObject.name);
             //todo activate the particle system
             // collision.rigidbody.gameObject
             explotion.transform.position = collision.contacts[0].point;
             explotion.SetActive(true);
-            DestroyObject(gameObject,0.6f);
+            DestroyObject(gameObject, 3f);//0.6f);
         }
     }
 
