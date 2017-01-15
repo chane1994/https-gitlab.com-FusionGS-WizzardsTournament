@@ -13,6 +13,7 @@ namespace WizardsTournament
         {
             patternsAndSpells = new Dictionary<string, string>();
             patternsAndSpells.Add("DarknessFireDarkness", "Prefabs/Characters/Honovi/Spells/FallingSkull");
+            patternsAndSpells.Add("StrengthLightStrength", "Prefabs/Characters/Honovi/Spells/StrengthBuffSpell");
         }
 
         public override HandState HandleInput(InputCommand inputCommand, SpellCaster spellCaster, Hand hand)

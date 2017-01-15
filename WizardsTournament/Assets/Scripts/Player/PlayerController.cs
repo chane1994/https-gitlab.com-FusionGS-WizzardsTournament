@@ -11,6 +11,7 @@ namespace WizardsTournament
     public class PlayerController : MonoBehaviour// This class is independent of the avatar. 
     {
         #region Variables
+   
         public Transform leftController;
         public Transform rightController;
         Character _character;
@@ -113,7 +114,7 @@ namespace WizardsTournament
 
         public void Teleport(Vector3 newPosition)
         {
-            transform.position = newPosition;//  _teleporter.TeleportNow = true;
+            transform.position = newPosition;
         }
         #endregion
     }

@@ -7,7 +7,7 @@ namespace WizardsTournament
 
     public enum Hand { Left, Right}
 
-    public enum SpellName { Skull, Fireball, HologramTeleporter, DeathSummon   }
+    public enum SpellName { Skull, Fireball, HologramTeleporter, DeathSummon, StrengthBuff   }
 
     public enum TypeOfAttack { BasicAttack, ContinuousAttack, SummonAttack, SpecialAvility, UnBreakable}
 

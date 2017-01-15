@@ -9,8 +9,8 @@ namespace WizardsTournament
     public class Referee : MonoBehaviour
     {
         #region Variables
-        Transform _playerTransform;
-        Transform _enemyTransform;
+        //Transform _playerTransform;
+        //Transform _enemyTransform;
         const string PLAYER_TAG = "Player";
         const string ENEMY_TAG = "Enemy";
         #endregion
@@ -28,12 +28,12 @@ namespace WizardsTournament
         {
             get
             {
-                return _enemyTransform;
+                return GameObject.FindGameObjectWithTag(ENEMY_TAG).transform;
             }
-            private set
-            {
-                _enemyTransform = value;
-            }
+            //private set
+            //{
+            //    _enemyTransform = value;
+            //}
         }
 
         /// <summary>
@@ -43,12 +43,12 @@ namespace WizardsTournament
         {
             get
             {
-                return _playerTransform;
+                return GameObject.FindGameObjectWithTag(PLAYER_TAG).transform;
             }
-            private set
-            {
-                _playerTransform = value;
-            }
+            //private set
+            //{
+            //    _playerTransform = value;
+            //}
         }
         #endregion
 
@@ -65,11 +65,11 @@ namespace WizardsTournament
             }
         }
 
-        void Start()
-        {
-            PlayerTransform = GameObject.FindGameObjectWithTag(PLAYER_TAG).transform;
-            EnemyTransform = GameObject.FindGameObjectWithTag(ENEMY_TAG).transform;
-        }
+        //void Start()
+        //{
+        //    PlayerTransform = GameObject.FindGameObjectWithTag(PLAYER_TAG).transform;
+        //    EnemyTransform = GameObject.FindGameObjectWithTag(ENEMY_TAG).transform;
+        //}
 
         /// <summary>
         /// Destroys the referee when the player goes back to the locker room

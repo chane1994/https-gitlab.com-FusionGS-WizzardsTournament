@@ -9,8 +9,22 @@ namespace WizardsTournament
     /// </summary>
     public class BoosterSummonSpell : Spell
     {
+        public bool buffPlayer;
+        public float destructionTime;
+        void Start()
+        {
+            //get the information from the referee to know where to position. You will get a transform
+            Transform targetTransform = Referee.Instance.PlayerTransform;
+            if (!buffPlayer)
+            {
+                targetTransform = Referee.Instance.EnemyTransform;
+            }
+            transform.position = new Vector3(targetTransform.position.x, targetTransform.position.y, targetTransform.position.z);
+            //todo it should buff the player or decrease the avility of the enemy
 
-       
+            DestroyObject(gameObject, destructionTime);
+        }
+
     }
 
 }
