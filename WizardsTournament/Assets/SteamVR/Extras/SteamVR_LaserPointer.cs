@@ -29,61 +29,50 @@ public class SteamVR_LaserPointer : MonoBehaviour
     Transform previousContact = null;
 
 	// Use this for initialization
-	//void Start ()
- //   {
- //       holder = new GameObject();
- //       holder.transform.parent = this.transform;
- //       holder.transform.localPosition = Vector3.zero;
+	void Start ()
+    {
+        holder = new GameObject();
+        holder.transform.parent = this.transform;
+        holder.transform.localPosition = Vector3.zero;
+		holder.transform.localRotation = Quaternion.identity;
 
- //       pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
- //       pointer.transform.parent = holder.transform;
- //       pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
- //       pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
- //       BoxCollider collider = pointer.GetComponent<BoxCollider>();
- //       if (addRigidBody)
- //       {
- //           if (collider)
- //           {
- //               collider.isTrigger = true;
- //           }
- //           Rigidbody rigidBody = pointer.AddComponent<Rigidbody>();
- //           rigidBody.isKinematic = true;
- //       }
- //       else
- //       {
- //           if(collider)
- //           {
- //               Object.Destroy(collider);
- //           }
- //       }
- //       Material newMaterial = new Material(Shader.Find("Unlit/Color"));
- //       newMaterial.SetColor("_Color", color);
- //       pointer.GetComponent<MeshRenderer>().material = newMaterial;
-	//}
+		pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        pointer.transform.parent = holder.transform;
+        pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
+        pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
+		pointer.transform.localRotation = Quaternion.identity;
+		BoxCollider collider = pointer.GetComponent<BoxCollider>();
+        if (addRigidBody)
+        {
+            if (collider)
+            {
+                collider.isTrigger = true;
+            }
+            Rigidbody rigidBody = pointer.AddComponent<Rigidbody>();
+            rigidBody.isKinematic = true;
+        }
+        else
+        {
+            if(collider)
+            {
+                Object.Destroy(collider);
+            }
+        }
+        Material newMaterial = new Material(Shader.Find("Unlit/Color"));
+        newMaterial.SetColor("_Color", color);
+        pointer.GetComponent<MeshRenderer>().material = newMaterial;
+	}
 
     public virtual void OnPointerIn(PointerEventArgs e)
     {
-        //if (PointerIn != null)
-        if(previousContact==null)
-        {
-            //previousContact = e.target;
-            WizardsTournament.Debugger.Log("enter Target");
-           // PointerIn(this, e);
-            
-        }
+        if (PointerIn != null)
+            PointerIn(this, e);
     }
 
     public virtual void OnPointerOut(PointerEventArgs e)
     {
-     //   if (PointerOut != null)
-
-        {
-            WizardsTournament.Debugger.Log("left Target");
-         //   PointerOut(this, e);
-            
-
-        }
-
+        if (PointerOut != null)
+            PointerOut(this, e);
     }
 
 
