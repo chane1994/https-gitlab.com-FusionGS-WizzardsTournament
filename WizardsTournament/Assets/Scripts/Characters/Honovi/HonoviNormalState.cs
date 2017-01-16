@@ -14,6 +14,7 @@ namespace WizardsTournament
             patternsAndSpells = new Dictionary<string, string>();
             patternsAndSpells.Add("DarknessFireDarkness", "Prefabs/Characters/Honovi/Spells/FallingSkull");
             patternsAndSpells.Add("StrengthLightStrength", "Prefabs/Characters/Honovi/Spells/StrengthBuffSpell");
+            patternsAndSpells.Add("FireLightFire", "Prefabs/Characters/Honovi/Spells/LifeAbsolver");
         }
 
         public override HandState HandleInput(InputCommand inputCommand, SpellCaster spellCaster, Hand hand)

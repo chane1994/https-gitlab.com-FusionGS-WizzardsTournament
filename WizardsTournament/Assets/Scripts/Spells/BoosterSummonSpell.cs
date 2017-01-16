@@ -18,6 +18,7 @@ namespace WizardsTournament
         {
             //get the information from the referee to know where to position. You will get a transform
             _targetTransform = Referee.Instance.EnemyTransform;
+            _playerHead = _targetTransform;
             if (buffPlayer)
             {
                 _targetTransform = Referee.Instance.PlayerTransform;
