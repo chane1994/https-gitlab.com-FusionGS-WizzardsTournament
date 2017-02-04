@@ -14,6 +14,10 @@ namespace WizardsTournament
    
         public Transform leftController;
         public Transform rightController;
+        [SerializeField]
+        Transform _spellSealSpawningPoint;
+        [SerializeField]
+        Transform _head;
         Character _character;
       //  PlayerTeleporter _teleporter;
         
@@ -22,6 +26,10 @@ namespace WizardsTournament
 
         #region Properties
         public static PlayerController Instance { get; private set; }
+
+        public Transform GetSpellSealSpawningPoint { get { return _spellSealSpawningPoint; } }
+
+        public Transform GetHead { get { return _head; } }
         #endregion
 
         #region Methods

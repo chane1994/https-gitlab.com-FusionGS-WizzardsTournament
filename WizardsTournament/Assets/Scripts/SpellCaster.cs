@@ -15,7 +15,7 @@ namespace WizardsTournament
         public GameObject teleportationSeal;
         public Transform spellSealSpawningPoint;
         const string L_SEAL = "Seal";
-    
+        const string L_PLAYER_SEAL = "PlayerSeal";
         #endregion
 
         #region Methods
@@ -69,15 +69,45 @@ namespace WizardsTournament
             shield.SetActive(activate);
         }
 
-        public void ActivateSpellSeal(string spellSealPath, Dictionary<string,string> patternsAndSpells)
+        public void ActivateSpellSeal(string spellSealPath, Dictionary<string, string> patternsAndSpells)
         {
+            ClearOldSeal();
             GameObject spellSealGameObject = Instantiate(Resources.Load<GameObject>(spellSealPath));
-            spellSealGameObject.transform.position = spellSealSpawningPoint.position;
-            spellSealGameObject.transform.rotation = spellSealSpawningPoint.rotation;
+            //  spellSealGameObject.transform.parent = transform;
+            spellSealGameObject.transform.position = PlayerController.Instance.GetSpellSealSpawningPoint.position;//spellSealSpawningPoint.position;
+            spellSealGameObject.transform.rotation = PlayerController.Instance.GetSpellSealSpawningPoint.rotation;
+            spellSealGameObject.tag = L_PLAYER_SEAL;
+            //  spellSealGameObject.transform.rotation =  Quaternion.Euler(  spellSealSpawningPoint.rotation.x,0 , spellSealSpawningPoint.rotation.z);
+            // spellSealGameObject.transform.rotation = spellSealSpawningPoint.rotation;// Quaternion.Euler( -90, spellSealSpawningPoint.rotation.y , spellSealSpawningPoint.rotation.z);
+            //  spellSealGameObject.transform.parent = null;
+            // spellSealGameObject.transform.localRotation = Quaternion.Euler(-90,spellSealGameObject.transform.localRotation.y, spellSealGameObject.transform.localRotation.z);
             SpellSeal spellSeal = spellSealGameObject.GetComponent<SpellSeal>();
             spellSeal.validColliders = PlayerController.Instance.GetHandColliders();
             spellSeal.patternsAndSpells = patternsAndSpells;
         }
+
+        /// <summary>
+        /// Eliminates the previous seal created by the player
+        /// </summary>
+        void ClearOldSeal()
+        {
+            Destroy(GameObject.FindWithTag(L_PLAYER_SEAL));
+        }
+
+
+        //public void ActivateSpellSeal(string spellSealPath, Dictionary<string,string> patternsAndSpells)
+        //{
+        //    GameObject spellSealGameObject = Instantiate(Resources.Load<GameObject>(spellSealPath));
+        //  //  spellSealGameObject.transform.parent = transform;
+        //    spellSealGameObject.transform.position = spellSealSpawningPoint.position;
+        //  //  spellSealGameObject.transform.rotation =  Quaternion.Euler(  spellSealSpawningPoint.rotation.x,0 , spellSealSpawningPoint.rotation.z);
+        //                                                                             spellSealGameObject.transform.rotation = spellSealSpawningPoint.rotation;// Quaternion.Euler( -90, spellSealSpawningPoint.rotation.y , spellSealSpawningPoint.rotation.z);
+        //                                                                             //  spellSealGameObject.transform.parent = null;
+        //                                                                             // spellSealGameObject.transform.localRotation = Quaternion.Euler(-90,spellSealGameObject.transform.localRotation.y, spellSealGameObject.transform.localRotation.z);
+        //    SpellSeal spellSeal = spellSealGameObject.GetComponent<SpellSeal>();
+        //    spellSeal.validColliders = PlayerController.Instance.GetHandColliders();
+        //    spellSeal.patternsAndSpells = patternsAndSpells;
+        //}
         #endregion
     }
 

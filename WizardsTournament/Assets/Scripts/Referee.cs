@@ -50,6 +50,18 @@ namespace WizardsTournament
             //    _playerTransform = value;
             //}
         }
+
+        public Transform PlayerHead
+        {
+            get
+            {
+                return PlayerController.Instance.GetHead;
+            }
+            //private set
+            //{
+            //    _playerTransform = value;
+            //}
+        }
         #endregion
 
         #region Methods

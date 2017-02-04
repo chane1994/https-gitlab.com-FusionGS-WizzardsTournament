@@ -22,7 +22,7 @@ namespace WizardsTournament
             if (buffPlayer)
             {
                 _targetTransform = Referee.Instance.PlayerTransform;
-                _playerHead = _targetTransform.GetChild(2);
+                _playerHead = Referee.Instance.PlayerHead;
             }
             transform.position = new Vector3(_playerHead.position.x, _targetTransform.position.y, _playerHead.position.z);
             //todo it should buff the player or decrease the avility of the enemy
